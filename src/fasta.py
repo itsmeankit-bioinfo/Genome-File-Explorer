@@ -1,4 +1,7 @@
-from Bio import SeqIO
+from Bio import (
+    SeqIO,
+    EmptyFASTAFileError,
+)
 
 
 class FASTAReader:
@@ -9,6 +12,12 @@ class FASTAReader:
 
     def load(self):
         self.records = list(SeqIO.parse(self.filepath, "fasta"))
+
+        if len(self.records) == 0:
+            raise EmptyFASTAFileError(
+                "The FASTA file contains no sequences."
+            )
+
         return self.records
 
     def sequence_length(self, sequence):

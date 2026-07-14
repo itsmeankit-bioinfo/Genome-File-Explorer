@@ -3,6 +3,19 @@ from src.fasta import FASTAReader
 
 def main():
 
+    try:
+        reader = FASTAReader("sample_data/sample.fasta")
+
+        sequences = reader.load()
+
+        # Your existing analysis code here
+
+    except FileNotFoundError:
+        print("❌ FASTA file not found.")
+
+    except Exception as e:
+        print("❌ Error: {e}")
+
     reader = FASTAReader("sample_data/sample.fasta")
 
     sequences = reader.load()
@@ -30,18 +43,15 @@ def main():
         print(f"C Count      : {counts['C']}")
         print(f"N Count      : {counts['N']}")
 
+        invalid = reader.validate_sequence(seq)
+
+        if len(invalid) == 0:
+            print("Validation   : ✅ Valid DNA Sequence")
+        else:
+            print("Validation   : ❌ Invalid DNA Sequence")
+
+            for pos, char in invalid:
+                print(f"Invalid Base : {char} at position {pos}")
+
         print("-" * 55)
 
-
-if __name__ == "__main__":
-    main()
-
-invalid = reader.validate_sequence(seq)
-
-if len(invalid) == 0:
-    print("Validation   : ✅ Valid DNA Sequence")
-else:
-    print("Validation   : ❌ Invalid DNA Sequence")
-
-    for pos, char in invalid:
-        print(f"Invalid Base : {char} at position {pos}")
