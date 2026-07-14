@@ -1,9 +1,8 @@
-# Python
+# Byte-compiled
 __pycache__/
 *.py[cod]
-*.pyo
 
-# Virtual environment
+# Virtual Environment
 .venv/
 venv/
 env/
@@ -11,6 +10,16 @@ env/
 # VS Code
 .vscode/
 
-# OS files
+# macOS
 .DS_Store
+
+# Windows
 Thumbs.db
+
+# Output Files
+outputs/*.csv
+outputs/*.pdf
+outputs/*.html
+
+# Logs
+*.log
