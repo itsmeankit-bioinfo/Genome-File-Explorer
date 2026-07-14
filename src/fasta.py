@@ -41,3 +41,25 @@ class FASTAReader:
             "C": sequence.count("C"),
             "N": sequence.count("N")
         }
+    
+    def validate_sequence(self, sequence):
+        """
+        Validate DNA sequence.
+        Returns True if valid.
+        """
+
+        valid_bases = {"A", "T", "G", "C", "N"}
+
+        sequence = sequence.upper()
+
+        invalid = []
+
+        for index, base in enumerate(sequence, start=1):
+            if base not in valid_bases:
+                invalid.append((index, base))
+
+        return invalid
+
+
+    def is_valid(self, sequence):
+        return len(self.validate_sequence(sequence)) == 0

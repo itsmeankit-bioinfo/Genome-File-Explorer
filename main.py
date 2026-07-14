@@ -35,3 +35,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+invalid = reader.validate_sequence(seq)
+
+if len(invalid) == 0:
+    print("Validation   : ✅ Valid DNA Sequence")
+else:
+    print("Validation   : ❌ Invalid DNA Sequence")
+
+    for pos, char in invalid:
+        print(f"Invalid Base : {char} at position {pos}")
