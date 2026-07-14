@@ -55,3 +55,14 @@ def main():
 
         print("-" * 55)
 
+        summary = reader.summary()
+
+        print("\n" + "=" * 55)
+        print("Genome Summary")
+        print("=" * 55)
+
+        print(f"Total Sequences : {summary['total']}")
+        print(f"Longest Sequence : {summary['longest'][0]} ({summary['longest'][1]} bp)")
+        print(f"Shortest Sequence : {summary['shortest'][0]} ({summary['shortest'][1]} bp)")
+        print(f"Average Length : {summary['average_length']:.2f} bp")
+        print(f"Overall GC : {summary['overall_gc']:.2f}%")

@@ -1,8 +1,6 @@
-from Bio import (
-    SeqIO,
-    EmptyFASTAFileError,
-)
-
+from Bio import SeqIO
+from src.exceptions import EmptyFASTAFileError
+from src.utils import average
 
 class FASTAReader:
 
@@ -72,3 +70,38 @@ class FASTAReader:
 
     def is_valid(self, sequence):
         return len(self.validate_sequence(sequence)) == 0
+    
+    def summary(self):
+        """
+        Generate summary statistics for all sequences.
+        """
+
+        lengths = []
+        gc_values = []
+
+        longest = None
+        shortest = None
+
+        for record in self.records:
+
+            seq = str(record.seq)
+
+            length = self.sequence_length(seq)
+            gc = self.gc_content(seq)
+
+            lengths.append(length)
+            gc_values.append(gc)
+
+            if longest is None or length > longest[1]:
+                longest = (record.id, length)
+
+            if shortest is None or length < shortest[1]:
+                shortest = (record.id, length)
+
+        return {
+            "total": len(self.records),
+            "average_length": average(lengths),
+            "overall_gc": average(gc_values),
+            "longest": longest,
+            "shortest": shortest
+        }
